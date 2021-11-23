@@ -6,18 +6,29 @@ Login API
 Register API
 Details API
 Getting Started
+
+
+
 Step 1: Install Package
 composer require laravel/passport
+
+
 
 open config/app.php file and add service provider.
 config/app.php
 'providers' =>[
 Laravel\Passport\PassportServiceProvider::class,
 ],
+
+
 Step 2: Run Migration and Install
 php artisan migrate
 php artisan passport:install
+
+
 Step 3: Passport Configuration app/User.php
+
+
 <?php
 namespace App;
 use Laravel\Passport\HasApiTokens;
@@ -70,6 +81,9 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes(); 
     } 
 }
+
+
+
 Step 4 :config/auth.php
 <?php
 return [
@@ -83,7 +97,11 @@ return [
             'provider' => 'users', 
         ], 
     ],
+
+
 Step 5: Create API Route
+
+
 <?php
 /*
 |--------------------------------------------------------------------------
@@ -100,7 +118,12 @@ Route::post('register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
 Route::post('details', 'API\UserController@details');
 });
+
+
+
 Step 6: Create the Controller
+
+
 <?php
 namespace App\Http\Controllers\API;
 use Illuminate\Http\Request; 
@@ -160,5 +183,9 @@ return response()->json(['success'=>$success], $this-> successStatus);
         return response()->json(['success' => $user], $this-> successStatus); 
     } 
 }
+
+
+
+
 Step 7: Run
 php artisan serve
